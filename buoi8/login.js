@@ -1,3 +1,6 @@
+import Login from "./login.js"
+import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.21.0/firebase-auth.js";
+
 
 class Login {
     $containerDiv
@@ -19,9 +22,32 @@ class Login {
 
     }
 
-    handleSubmit = (a) => {
+    handleSubmit = (e) => {
+           
+// validation
+e.preventDefault(); // can lai cac su mac dinh de xem co dung yeu cau nhap du lieu chua 
+const email = this.$emailInputEmail.value;
+const password = this.$passInputPass.value;
+
+
+if(email == "") {
+ alert("Email cannot be empty!");
+ return;
+}
+if(password.length < 6) {
+ alert("Password must be least 6 letters!");
+ return;
+}
+
+ if(password != confirmPass) {
+  alert("Your password not match!");
+  return;
+ }
+
+
+
         
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+// import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 
 const auth = getAuth();
 createUserWithEmailAndPassword(auth, email, password)
@@ -43,6 +69,7 @@ createUserWithEmailAndPassword(auth, email, password)
 
     gotoSignin = () => {
         const login = new Login();
+
 
 
     }

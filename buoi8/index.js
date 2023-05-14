@@ -1,5 +1,5 @@
-import Login from "./login";
-
+import Login from "./login.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.21.0/firebase-app.js";
 
 class App {
     activeScreen
