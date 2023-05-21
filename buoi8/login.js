@@ -1,81 +1,63 @@
-import Login from "./login.js"
-import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.21.0/firebase-auth.js";
+import app from "./index.js"
+import Register from "./register2.js"
+// import khi đến đoạn go to Register 
 
+class Login{
+    $txtEmail
+    $txtPassword
+    $formLogin
+    $btnSubmit
+    $txtGotoRegister
 
-class Login {
-    $containerDiv
-    $titleH2
-    $signinForm
-    $emailInputEmail
-    $passInputPass
-    $submitBtn
+    constructor () {
+        this.$txtEmail = document.createElement("input")
+        this.$txtEmail.type = "email"
+        this.$txtEmail.placeholder = "Enter your email ... "
 
-    constructor() {
-        this.$emailInputEmail = document.createElement("input"); // <input> </input>
-        this.$emailInputEmail.type = "email"; 
-        this.$emailInputEmail.placeholder = "Enter your email..."
+        this.$txtPassword = document.createElement("input")
+        this.$txtPassword.type = "password"
+        this.$txtPassword.placeholder = "enter your password ..."
 
+        this.$formLogin = document.createElement("form")
+        this.$btnSubmit = document.createElement("button")
+        this.$btnSubmit.innerHTML = "Login"
 
-     
+        this.$txtGotoRegister = document.createElement("a")
+        this.$txtGotoRegister.innerHTML = "Register your new account"
+
+        this.$txtGotoRegister.addEventListener("click", this.gotoRegister)
+
+    }
+
+    initRender = (container) =>{
+        const flexContainer = document.createElement("div")
+        const title = document.createElement("h2")
+        title.innerHTML ="Login"
+        flexContainer.classList.add("d-flex", "flex-column", "centering")
+
+        flexContainer.appendChild(title)
+        flexContainer.appendChild(this.$txtEmail)
+        flexContainer.appendChild(this.$txtPassword)
+        flexContainer.appendChild(this.$btnSubmit)
+        flexContainer.appendChild(this.$txtGotoRegister)
 
         
-
+        this.$formLogin.appendChild(flexContainer)
+        this.$formLogin.addEventListener("submit",this.login)
+        container.appendChild(this.$formLogin)
     }
 
-    handleSubmit = (e) => {
-           
-// validation
-e.preventDefault(); // can lai cac su mac dinh de xem co dung yeu cau nhap du lieu chua 
-const email = this.$emailInputEmail.value;
-const password = this.$passInputPass.value;
-
-
-if(email == "") {
- alert("Email cannot be empty!");
- return;
-}
-if(password.length < 6) {
- alert("Password must be least 6 letters!");
- return;
-}
-
- if(password != confirmPass) {
-  alert("Your password not match!");
-  return;
- }
-
-
-
-        
-// import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-
-const auth = getAuth();
-createUserWithEmailAndPassword(auth, email, password)
-  .then((userCredential) => {
-    // Signed in 
-    const user = userCredential.user;
-    // ...
-  })
-  .catch((error) => {
-    const errorCode = error.code;
-    const errorMessage = error.message;
-    // ..
-  });
+    //2
+    gotoRegister = () => {
+        const register = new Register()
+        app.changeActiveScreen(register)
     }
 
-
-
-
-
-    gotoSignin = () => {
-        const login = new Login();
-
-
-
+    login =(e) => {
+        e.preventDefault()
+        const email = this.$txtEmail.value
+        const password = this.$txtPassword.value
     }
-
-   
 }
 
-
-export default Login;
+export default Login
